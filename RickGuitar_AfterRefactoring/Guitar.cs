@@ -4,16 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickGuitar_BeforeRefactoring
+namespace RickGuitar_AfterRefactoring
 {
     public class Guitar
     {
-        private String serialNumber, builder, model, type, backWood, topWood;
+        private String serialNumber,model;
         private double price;
+        private Builder builder;
+        private Type type;
+        private Wood backWood;
+        private Wood topWood;
+
 
         public Guitar(String serialNumber, double price,
-               String builder, String model, String type,
-               String backWood, String topWood)
+               Builder builder, String model, Type type,
+               Wood backWood, Wood topWood)
         {
             this.serialNumber = serialNumber;
             this.price = price;
@@ -37,7 +42,7 @@ namespace RickGuitar_BeforeRefactoring
         {
             this.price = newPrice;
         }
-        public String getBuilder()
+        public Builder getBuilder()
         {
             return builder;
         }
@@ -45,15 +50,15 @@ namespace RickGuitar_BeforeRefactoring
         {
             return model;
         }
-        public String getType()
+        public Type getType()
         {
             return type;
         }
-        public String getBackWood()
+        public Wood getBackWood()
         {
             return backWood;
         }
-        public String getTopWood()
+        public Wood getTopWood()
         {
             return topWood;
         }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RickGuitar_BeforeRefactoring
+namespace RickGuitar_AfterRefactoring
 {
    public class Inventory
     {
@@ -16,8 +16,8 @@ namespace RickGuitar_BeforeRefactoring
         }
 
         public void addGuitar(String serialNumber, double price,
-                      String builder, String model,
-                      String type, String backWood, String topWood)
+                      Builder builder, String model,
+                      Type type, Wood backWood, Wood topWood)
         {
             Guitar guitar = new Guitar(serialNumber, price, builder,
                                        model, type, backWood, topWood);
@@ -36,34 +36,29 @@ namespace RickGuitar_BeforeRefactoring
             return null;
         }
 
-        public Guitar search(Guitar searchGuitar)
+        public List<Guitar> search(Guitar searchGuitar)
         {
-            foreach (var guitar in guitars)
+            List<Guitar> matchingGuitars = new List<Guitar>();
+            foreach (Guitar guitar in guitars)
             {
-                String builder = searchGuitar.getBuilder();
-                if ((builder != null) && (!builder.Equals("")) &&
-                    (!builder.Equals(guitar.getBuilder())))
+              
+                // Ignore serial number since that's unique
+                // Ignore price since that's unique
+                if (searchGuitar.getBuilder() != guitar.getBuilder())
                     continue;
-                String model = searchGuitar.getModel();
+                String model = searchGuitar.getModel().ToLower();
                 if ((model != null) && (!model.Equals("")) &&
-                    (!model.Equals(guitar.getModel())))
+                    (!model.Equals(guitar.getModel().ToLower())))
                     continue;
-                String type = searchGuitar.getType();
-                if ((type != null) && (!searchGuitar.Equals("")) &&
-                    (!type.Equals(guitar.getType())))
+                if (searchGuitar.getType() != guitar.getType())
                     continue;
-                String backWood = searchGuitar.getBackWood();
-                if ((backWood != null) && (!backWood.Equals("")) &&
-                    (!backWood.Equals(guitar.getBackWood())))
+                if (searchGuitar.getBackWood() != guitar.getBackWood())
                     continue;
-                String topWood = searchGuitar.getTopWood();
-                if ((topWood != null) && (!topWood.Equals("")) &&
-                    (!topWood.Equals(guitar.getTopWood())))
+                if (searchGuitar.getTopWood() != guitar.getTopWood())
                     continue;
-                return guitar;
+                matchingGuitars.Add(guitar);
             }
-
-            return null;
+            return matchingGuitars;
         }
     }
 }
