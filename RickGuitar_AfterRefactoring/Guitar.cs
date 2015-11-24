@@ -10,23 +10,15 @@ namespace RickGuitar_AfterRefactoring
     {
         private String serialNumber,model;
         private double price;
-        private Builder builder;
-        private Type type;
-        private Wood backWood;
-        private Wood topWood;
+        private GuitarSpec spec;
 
 
         public Guitar(String serialNumber, double price,
-               Builder builder, String model, Type type,
-               Wood backWood, Wood topWood)
+               GuitarSpec guitarSpec)
         {
             this.serialNumber = serialNumber;
             this.price = price;
-            this.builder = builder;
-            this.model = model;
-            this.type = type;
-            this.backWood = backWood;
-            this.topWood = topWood;
+            this.spec = guitarSpec;
         }
 
         public String getSerialNumber()
@@ -42,25 +34,10 @@ namespace RickGuitar_AfterRefactoring
         {
             this.price = newPrice;
         }
-        public Builder getBuilder()
+        public GuitarSpec getSpec()
         {
-            return builder;
+            return spec;
         }
-        public String getModel()
-        {
-            return model;
-        }
-        public Type getType()
-        {
-            return type;
-        }
-        public Wood getBackWood()
-        {
-            return backWood;
-        }
-        public Wood getTopWood()
-        {
-            return topWood;
-        }
+
     }
 }

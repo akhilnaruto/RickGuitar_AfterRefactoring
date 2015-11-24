@@ -16,11 +16,9 @@ namespace RickGuitar_AfterRefactoring
         }
 
         public void addGuitar(String serialNumber, double price,
-                      Builder builder, String model,
-                      Type type, Wood backWood, Wood topWood)
+                     GuitarSpec spec)
         {
-            Guitar guitar = new Guitar(serialNumber, price, builder,
-                                       model, type, backWood, topWood);
+            Guitar guitar = new Guitar(serialNumber, price, spec);
             guitars.Add(guitar);
         }
 
@@ -36,27 +34,15 @@ namespace RickGuitar_AfterRefactoring
             return null;
         }
 
-        public List<Guitar> search(Guitar searchGuitar)
+        public List<Guitar> search(GuitarSpec searchSpec)
         {
             List<Guitar> matchingGuitars = new List<Guitar>();
             foreach (Guitar guitar in guitars)
             {
-              
-                // Ignore serial number since that's unique
-                // Ignore price since that's unique
-                if (searchGuitar.getBuilder() != guitar.getBuilder())
-                    continue;
-                String model = searchGuitar.getModel().ToLower();
-                if ((model != null) && (!model.Equals("")) &&
-                    (!model.Equals(guitar.getModel().ToLower())))
-                    continue;
-                if (searchGuitar.getType() != guitar.getType())
-                    continue;
-                if (searchGuitar.getBackWood() != guitar.getBackWood())
-                    continue;
-                if (searchGuitar.getTopWood() != guitar.getTopWood())
-                    continue;
-                matchingGuitars.Add(guitar);
+
+                var guitarSpec = guitar.getSpec();
+                if (guitar.getSpec().matches(searchSpec))
+                    matchingGuitars.Add(guitar);
             }
             return matchingGuitars;
         }
